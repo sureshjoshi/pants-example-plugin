@@ -9,5 +9,10 @@ backend_packages = [
     "experimental.fooify",
 ]
 
+[source]
+root_patterns = [
+    "helloworld",
+]
+
 [anonymous-telemetry]
 enabled = false
