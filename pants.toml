@@ -1,0 +1,12 @@
+[GLOBAL]
+pants_version = "2.9.0"
+pythonpath = ["pants-plugins"] # Let Pants know that we want to reference modules from within here
+print_stacktrace = true # You'll want this enabled - trust me
+
+backend_packages = [
+    "pants.backend.plugin_development", # Adds the `pants_requirements` target type
+    "pants.backend.python",
+]
+
+[anonymous-telemetry]
+enabled = false
