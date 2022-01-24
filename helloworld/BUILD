@@ -12,7 +12,7 @@ python_distribution(
     ),
 )
 
-fooify(
+fooify_distribution(
     name="helloworld-foo",
     dependencies=[":helloworld-dist"],
 )
