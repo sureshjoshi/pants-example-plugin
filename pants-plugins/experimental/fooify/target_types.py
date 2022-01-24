@@ -8,7 +8,7 @@ class FooifyDependenciesField(Dependencies):
     pass
 
 class FooifyTarget(Target):
-    alias = "fooify"
+    alias = "fooify_distribution"
     core_fields = (
         *COMMON_TARGET_FIELDS,
         FooifyDependenciesField,
