@@ -11,3 +11,8 @@ python_distribution(
         description="A distribution for the hello world library.",
     ),
 )
+
+fooify(
+    name="helloworld-foo",
+    dependencies=[":helloworld-dist"],
+)
