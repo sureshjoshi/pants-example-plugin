@@ -4,10 +4,13 @@ from pants.engine.target import (
     Target,
 )
 
+class FooifyDependenciesField(Dependencies):
+    pass
+
 class FooifyTarget(Target):
     alias = "fooify"
     core_fields = (
         *COMMON_TARGET_FIELDS,
-        Dependencies,
+        FooifyDependenciesField,
     )
     help = "The `fooify` target will take in a wheel dependency and add a .foo extension to the end."
