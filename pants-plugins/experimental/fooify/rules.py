@@ -6,15 +6,16 @@ from pants.engine.fs import (
     Digest,
 )
 from pants.engine.rules import Get, collect_rules, rule
-from pants.engine.target import Dependencies
 from pants.engine.unions import UnionRule
 from pants.util.logging import LogLevel
 
+from experimental.fooify.target_types import FooifyDependenciesField
+
 @dataclass(frozen=True)
 class FooifyFieldSet(PackageFieldSet):
-    required_fields = (Dependencies,)
+    required_fields = (FooifyDependenciesField,)
 
-    dependencies: Dependencies
+    dependencies: FooifyDependenciesField
 
 
 @rule(level=LogLevel.DEBUG)
