@@ -1,11 +1,9 @@
-from pants.engine.target import (
-    COMMON_TARGET_FIELDS,
-    Dependencies,
-    Target,
-)
+from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, Target
+
 
 class FooifyDependenciesField(Dependencies):
     pass
+
 
 class FooifyTarget(Target):
     alias = "fooify_distribution"

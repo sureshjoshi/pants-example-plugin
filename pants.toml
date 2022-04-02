@@ -6,6 +6,11 @@ print_stacktrace = true # You'll want this enabled - trust me
 backend_packages = [
     "pants.backend.plugin_development", # Adds the `pants_requirements` target type
     "pants.backend.python",
+    "pants.backend.python.lint.black",
+    #"pants.backend.python.lint.docformatter",
+    "pants.backend.python.lint.isort",
+    "pants.backend.experimental.python.lint.autoflake",
+    "pants.backend.experimental.python.lint.pyupgrade",
     "experimental.fooify",
 ]
 
@@ -13,6 +18,12 @@ backend_packages = [
 root_patterns = [
     "helloworld",
 ]
+
+[isort]
+args = "--profile black"
+
+[pyupgrade]
+args = "--py39-plus"
 
 [anonymous-telemetry]
 enabled = false
