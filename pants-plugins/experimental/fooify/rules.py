@@ -27,7 +27,7 @@ class FooifyFieldSet(PackageFieldSet):
 
 @rule(level=LogLevel.DEBUG)
 async def run_fooify(fooify: Fooify, field_set: FooifyFieldSet) -> BuiltPackage:
-    logger.info(f"Incoming field set: {field_set}")
+    logger.info(f"Incoming field set: {field_set} and subsystem {fooify}")
 
     # What is Get?
     # https://www.pantsbuild.org/docs/rules-api-concepts#await-get---awaiting-results-in-a-rule-body
