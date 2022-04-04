@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+# https://github.com/pantsbuild/pants/blob/main/build-support/
+
+function git_merge_base() {
+    # This prints the tracking branch if set and otherwise falls back to the commit before HEAD.
+    # We fall back to the commit before HEAD to attempt to account for situations without a tracking
+    # branch, which might include `main` builds, but can also include branch-PR builds, where
+    # Travis checks out a specially crafted Github `+refs/pull/11516/merge` branch.
+    git rev-parse --symbolic-full-name --abbrev-ref HEAD@\{upstream\} 2> /dev/null || git rev-parse HEAD^
+}
+
+MERGE_BASE="$(git_merge_base)"
+
+echo "* Checking linters, formatters, and headers"
+./pants --changed-since="$(git_merge_base)" lint ||
+  die "If there were formatting errors, run \`./pants --changed-since=$(git rev-parse --symbolic "$(git_merge_base)") fmt\`"
+
+echo "* Typechecking"
+./pants --changed-since="$(git_merge_base)" --changed-dependees=transitive check
+
