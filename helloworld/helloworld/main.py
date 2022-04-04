@@ -1,5 +1,6 @@
-def main():
+def main() -> None:
     print("Hello, world!")
+
 
 if __name__ == "__main__":
     print("Launching HelloWorld from __main__")
