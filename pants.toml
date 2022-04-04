@@ -1,5 +1,5 @@
 [GLOBAL]
-pants_version = "2.9.0"
+pants_version = "2.10.0"
 pythonpath = ["pants-plugins"] # Let Pants know that we want to reference modules from within here
 print_stacktrace = true # You'll want this enabled - trust me
 

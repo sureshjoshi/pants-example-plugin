@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import logging
 from dataclasses import dataclass
+from typing import Iterable
 
 from experimental.fooify.subsystem import Fooify
 from experimental.fooify.target_types import FooifyDependenciesField
 from pants.core.goals.package import BuiltPackage, BuiltPackageArtifact, PackageFieldSet
 from pants.engine.fs import CreateDigest, Digest, DigestEntries, FileEntry
-from pants.engine.rules import Get, collect_rules, rule
+from pants.engine.rules import Get, Rule, collect_rules, rule
 from pants.engine.target import (
     DependenciesRequest,
     FieldSetsPerTarget,
@@ -66,5 +69,8 @@ async def run_fooify(fooify: Fooify, field_set: FooifyFieldSet) -> BuiltPackage:
     )
 
 
-def rules():
-    return [*collect_rules(), UnionRule(PackageFieldSet, FooifyFieldSet)]
+def rules() -> Iterable[Rule | UnionRule]:
+    return [
+        *collect_rules(),
+        UnionRule(PackageFieldSet, FooifyFieldSet),
+    ]

@@ -1,5 +1,6 @@
 from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, Target
 
+
 class FooifyDependenciesField(Dependencies):
     pass
 

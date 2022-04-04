@@ -1,4 +1,8 @@
-from pants.engine.rules import collect_rules
+from __future__ import annotations
+
+from typing import Iterable
+
+from pants.engine.rules import Rule, collect_rules
 from pants.option.subsystem import Subsystem
 
 
@@ -7,5 +11,5 @@ class Fooify(Subsystem):
     help = """The Fooify utility for adding .foo to a wheel."""
 
 
-def rules():
-    return [*collect_rules()]
+def rules() -> Iterable[Rule]:
+    return collect_rules()
