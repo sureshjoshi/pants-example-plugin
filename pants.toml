@@ -15,6 +15,9 @@ backend_packages = [
     "pants.backend.python.typecheck.mypy",
     "pants.backend.experimental.python.lint.autoflake",
     "pants.backend.experimental.python.lint.pyupgrade",
+    "pants.backend.shell",
+    "pants.backend.shell.lint.shellcheck",
+    "pants.backend.shell.lint.shfmt",
     "experimental.fooify",
 ]
 
@@ -47,6 +50,10 @@ args = "--py39-plus"
 [mypy]
 version = "mypy==0.942"
 lockfile = "build-support/mypy.txt"
+
+[shfmt]
+# See https://github.com/mvdan/sh/blob/master/cmd/shfmt/shfmt.1.scd#printer-flags.
+args = ["-i 4", "-ci", "-sr"]
 
 [anonymous-telemetry]
 enabled = false

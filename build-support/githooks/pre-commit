@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
+# Minimal spiritual child of: https://github.com/pantsbuild/pants/blob/main/build-support/githooks/pre-commit
+
 set -e
 
-# https://github.com/pantsbuild/pants/blob/main/build-support/
+COLOR_RED="\x1b[31m"
+COLOR_RESET="\x1b[0m"
 
 function git_merge_base() {
     # This prints the tracking branch if set and otherwise falls back to the commit before HEAD.
@@ -12,12 +15,20 @@ function git_merge_base() {
     git rev-parse --symbolic-full-name --abbrev-ref HEAD@\{upstream\} 2> /dev/null || git rev-parse HEAD^
 }
 
+function log() {
+    echo -e "$@" 1>&2
+}
+
+function die() {
+    (($# > 0)) && log "\n${COLOR_RED}$*${COLOR_RESET}"
+    exit 1
+}
+
 MERGE_BASE="$(git_merge_base)"
 
-echo "* Checking linters, formatters, and headers"
-./pants --changed-since="$(git_merge_base)" lint ||
-  die "If there were formatting errors, run \`./pants --changed-since=$(git rev-parse --symbolic "$(git_merge_base)") fmt\`"
+echo "* Lint checking"
+./pants --changed-since="${MERGE_BASE}" lint ||
+    die "If there were formatting errors, run \`./pants --changed-since=$(git rev-parse --symbolic "${MERGE_BASE}") fmt\`"
 
 echo "* Typechecking"
-./pants --changed-since="$(git_merge_base)" --changed-dependees=transitive check
-
+./pants --changed-since="${MERGE_BASE}" --changed-dependees=transitive check
