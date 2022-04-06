@@ -26,6 +26,10 @@ function die() {
 
 MERGE_BASE="$(git_merge_base)"
 
+echo "* Build file checking"
+./pants --changed-since="${MERGE_BASE}" update-build-files --check ||
+    die "If there were errors, run \`./pants --changed-since=$(git rev-parse --symbolic "${MERGE_BASE}") update-build-files\`"
+
 echo "* Lint checking"
 ./pants --changed-since="${MERGE_BASE}" lint ||
     die "If there were formatting errors, run \`./pants --changed-since=$(git rev-parse --symbolic "${MERGE_BASE}") fmt\`"
